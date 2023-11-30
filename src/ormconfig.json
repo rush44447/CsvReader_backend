@@ -1,0 +1,13 @@
+{
+   "type": "postgres",
+   "host": "${DB_HOSTNAME}",
+   "port": "${DB_PORT}",
+   "username": "${DB_USERNAME}",
+   "password": "${DB_PASSWORD}",
+   "database": "${DATABASE}",
+   "logging": true,
+   "entities": ["dist/**/*.entity{.ts,.js}"],
+   "cli": {
+     "entitiesDir": "src/models/**/entities/*.entity{.ts,.js}"
+   }
+ }

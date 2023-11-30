@@ -7,34 +7,35 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './utils/response.interceptor';
 import { UserModule } from './models/reader/user.module';
+import { MulterModule } from '@nestjs/platform-express/multer';
 
-dotenv.config({
-  path: `./env-setup/.env.${process.env.NODE_ENV || 'dev'}`,
-});
+dotenv.config();
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-    useFactory: async () => ({
-      type: 'mssql',
-      host: 'ECOM-ELPMC-DEV01',
-      port: 1433,
-      username: 'cs_ELPMC_Dev',
-      password: 'xagG|w*mE1-M',
-      database: 'elpmc',
-      synchronize: false,
-      logging: !!process.env.DB_LOGGING,
-      entities: [__dirname + '/models/**/*.entity{.ts,.js}'],
+      useFactory: async () => ({
+        type: 'postgres',
+        host: 'localhost',
+        port: 5432,
+        username: 'postgres',
+        password: 'qwerty',
+        database: 'public',
+        logging: !!process.env.DB_LOGGING,
+        entities: [__dirname + '/models/**/*.entity{.ts,.js}'],
+      }),
     }),
-  }), 
+    MulterModule.register({
+      dest: './uploads', // Destination folder for uploaded files
+    }),
     UserModule,],
   controllers: [AppController],
-  providers: [AppService,{
+  providers: [AppService, {
     provide: Logger,
     useClass: AppLogger,
-  },{
-    provide: APP_INTERCEPTOR,
-    useClass: ResponseInterceptor,
-  },
-],
+  }, {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseInterceptor,
+    },
+  ],
 })
-export class AppModule {}
+export class AppModule { }

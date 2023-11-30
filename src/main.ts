@@ -20,7 +20,7 @@ async function bootstrap() {
   const upload = multer({ storage });
 
   app.use(upload.single('file')); 
-  await app.listen(process.env.PORT);
+  await app.listen(3000);
   logger.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
