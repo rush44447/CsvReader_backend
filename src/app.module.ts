@@ -5,8 +5,8 @@ import { AppLogger } from './utils/app.logger';
 import * as dotenv from 'dotenv';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { ReaderModule } from './models/reader/reader.module';
 import { ResponseInterceptor } from './utils/response.interceptor';
+import { UserModule } from './models/reader/user.module';
 
 dotenv.config({
   path: `./env-setup/.env.${process.env.NODE_ENV || 'dev'}`,
@@ -26,7 +26,7 @@ dotenv.config({
       entities: [__dirname + '/models/**/*.entity{.ts,.js}'],
     }),
   }), 
-    ReaderModule,],
+    UserModule,],
   controllers: [AppController],
   providers: [AppService,{
     provide: Logger,

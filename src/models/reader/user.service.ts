@@ -2,7 +2,7 @@ import { Injectable, UploadedFile } from '@nestjs/common';
 import * as fastcsv from 'fast-csv';
 
 @Injectable()
-export class ReaderService {
+export class UserService {
     async convertCsvToJson(@UploadedFile() file): Promise<any[]> {
         return new Promise((resolve, reject) => {
             const records = [];
