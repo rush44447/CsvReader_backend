@@ -16,7 +16,6 @@ export class UserController {
     const jsonData = await this.userService.convertCsvToJson(file);
     const nestedObject = this.userService.unflatten(jsonData);
     this.logger.log(`Found : ${JSON.stringify(nestedObject)}`)
-    console.log(nestedObject)
     return this.userService.insertData(nestedObject);
   }
 
