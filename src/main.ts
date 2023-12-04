@@ -14,11 +14,10 @@ async function bootstrap() {
   app.enableCors();
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-
   // Set up multer for file uploads
   const storage = multer.memoryStorage();
   const upload = multer({ storage });
-
+  
   app.use(upload.single('file')); 
   await app.listen(3000);
   logger.log(`Application is running on: ${await app.getUrl()}`);

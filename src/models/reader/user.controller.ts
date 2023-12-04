@@ -1,20 +1,23 @@
 
 import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { UserService } from './user.service';
+import { AppLogger } from 'src/utils/app.logger';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService, private logger: AppLogger) {}
 
   @Get()
   getA(){
-    return "asas";
+    return this.userService.getUser();
   }
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file): Promise<any[]> {console.log(12)
+  async uploadFile(@UploadedFile() file) {
     const jsonData = await this.userService.convertCsvToJson(file);
-    return this.userService.insertData(jsonData);
+    const nestedObject = this.userService.unflatten(jsonData);
+    this.logger.log(`Found : ${JSON.stringify(nestedObject)}`)
+    console.log(nestedObject)
+    return this.userService.insertData(nestedObject);
   }
+
 }

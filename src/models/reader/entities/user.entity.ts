@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { IsBoolean, IsDate, IsNumber, IsString } from 'class-validator';
 
-@Entity({ name: 'User' })
+@Entity({ name: 'users', database: 'public' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

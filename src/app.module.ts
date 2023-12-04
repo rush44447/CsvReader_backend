@@ -2,14 +2,12 @@ import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppLogger } from './utils/app.logger';
-import * as dotenv from 'dotenv';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './utils/response.interceptor';
 import { UserModule } from './models/reader/user.module';
 import { MulterModule } from '@nestjs/platform-express/multer';
 
-dotenv.config();
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
